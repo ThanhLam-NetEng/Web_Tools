@@ -10,7 +10,13 @@ import type {
   CvExperience,
   CvLanguage,
 } from '../../../shared/cv';
-import { ACCENT_COLORS, FONT_FAMILIES, FONT_SIZES } from '../../../shared/cv';
+import {
+  ACCENT_COLORS,
+  DEFAULT_FONT_SIZE_PT,
+  FONT_FAMILIES,
+  MAX_FONT_SIZE_PT,
+  MIN_FONT_SIZE_PT,
+} from '../../../shared/cv';
 import { TEMPLATES } from '../../templates';
 import { CvPreviewFrame } from '../../components/CvPreviewFrame';
 import './cv-pages.css';
@@ -50,11 +56,11 @@ export function CvEditorPage() {
       .get<CvDocumentFull>(`/cv/${id}`)
       .then((doc) => {
         // CV cũ lưu trước khi có tính năng cỡ/kiểu chữ sẽ thiếu 2 field này trong data_json.
-        const legacy = doc.data as Omit<CvData, 'fontSize' | 'fontFamily'> & {
-          fontSize?: CvData['fontSize'];
+        const legacy = doc.data as Omit<CvData, 'fontSizePt' | 'fontFamily'> & {
+          fontSizePt?: CvData['fontSizePt'];
           fontFamily?: CvData['fontFamily'];
         };
-        setData({ ...legacy, fontSize: legacy.fontSize ?? 'medium', fontFamily: legacy.fontFamily ?? 'inter' });
+        setData({ ...legacy, fontSizePt: legacy.fontSizePt || DEFAULT_FONT_SIZE_PT, fontFamily: legacy.fontFamily ?? 'inter' });
       })
       .catch(() => setError('Không tải được CV.'))
       .finally(() => setLoading(false));
@@ -217,51 +223,44 @@ function PersonalStep({ data, patch }: StepProps) {
         {avatarError && <p className="error-text">{avatarError}</p>}
       </div>
 
-      <div className="field">
-        <label>Màu nhấn</label>
-        <div className="accent-picker">
-          {ACCENT_COLORS.map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              className={`accent-swatch${data.accentColor === c.id ? ' selected' : ''}`}
-              style={{ background: c.hex }}
-              title={c.label}
-              onClick={() => patch({ accentColor: c.id })}
-            />
-          ))}
+      <div className="cv-editor-row cv-design-row">
+        <div className="field" style={{ flex: '0 0 auto' }}>
+          <label>Màu nhấn</label>
+          <div className="accent-picker">
+            {ACCENT_COLORS.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className={`accent-swatch${data.accentColor === c.id ? ' selected' : ''}`}
+                style={{ background: c.hex }}
+                title={c.label}
+                onClick={() => patch({ accentColor: c.id })}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="field">
-        <label>Cỡ chữ</label>
-        <div className="option-picker">
-          {FONT_SIZES.map((f) => (
-            <button
-              key={f.id}
-              type="button"
-              className={`cv-editor-step-btn${data.fontSize === f.id ? ' active' : ''}`}
-              onClick={() => patch({ fontSize: f.id })}
-            >
-              {f.label}
-            </button>
-          ))}
+        <div className="field" style={{ flex: '0 0 90px' }}>
+          <label>Cỡ chữ (pt)</label>
+          <input
+            type="number"
+            min={MIN_FONT_SIZE_PT}
+            max={MAX_FONT_SIZE_PT}
+            step={0.5}
+            value={data.fontSizePt}
+            onChange={(e) => patch({ fontSizePt: Number(e.target.value) })}
+          />
         </div>
-      </div>
 
-      <div className="field">
-        <label>Kiểu chữ</label>
-        <div className="option-picker">
-          {FONT_FAMILIES.map((f) => (
-            <button
-              key={f.id}
-              type="button"
-              className={`cv-editor-step-btn${data.fontFamily === f.id ? ' active' : ''}`}
-              onClick={() => patch({ fontFamily: f.id })}
-            >
-              {f.label}
-            </button>
-          ))}
+        <div className="field" style={{ flex: 1 }}>
+          <label>Kiểu chữ</label>
+          <select value={data.fontFamily} onChange={(e) => patch({ fontFamily: e.target.value as CvData['fontFamily'] })}>
+            {FONT_FAMILIES.map((f) => (
+              <option key={f.id} value={f.id}>
+                {f.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <div className="field">

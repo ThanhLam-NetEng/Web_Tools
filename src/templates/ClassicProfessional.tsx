@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { CvData } from '../../shared/cv';
-import { ACCENT_COLORS, FONT_FAMILIES, FONT_SIZES } from '../../shared/cv';
+import { ACCENT_COLORS, DEFAULT_FONT_SIZE_PT, FONT_FAMILIES } from '../../shared/cv';
 import './ClassicProfessional.css';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export function ClassicProfessional({ data }: Props) {
   const accent = ACCENT_COLORS.find((a) => a.id === data.accentColor)?.hex ?? ACCENT_COLORS[0].hex;
-  const fontSizePt = FONT_SIZES.find((f) => f.id === data.fontSize)?.pt ?? FONT_SIZES[1].pt;
+  const fontSizePt = data.fontSizePt || DEFAULT_FONT_SIZE_PT;
   const fontFamily = FONT_FAMILIES.find((f) => f.id === data.fontFamily)?.css ?? FONT_FAMILIES[0].css;
 
   return (

@@ -119,6 +119,7 @@
 
 .cv-editor-row {
   display: flex;
+  align-items: flex-start;
   gap: 0.8rem;
 }
 
@@ -129,11 +130,7 @@
 .accent-picker {
   display: flex;
   gap: 0.6rem;
-}
-
-.option-picker {
-  display: flex;
-  gap: 0.4rem;
+  padding-top: 0.3rem;
 }
 
 .accent-swatch {

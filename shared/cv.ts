@@ -10,13 +10,9 @@ export const ACCENT_COLORS: { id: AccentColor; label: string; hex: string }[] = 
   { id: 'slate', label: 'Xanh đá', hex: '#2c3e4a' },
 ];
 
-export type FontSize = 'small' | 'medium' | 'large';
-
-export const FONT_SIZES: { id: FontSize; label: string; pt: number }[] = [
-  { id: 'small', label: 'Nhỏ', pt: 9.5 },
-  { id: 'medium', label: 'Vừa', pt: 10.5 },
-  { id: 'large', label: 'Lớn', pt: 11.5 },
-];
+export const MIN_FONT_SIZE_PT = 8;
+export const MAX_FONT_SIZE_PT = 14;
+export const DEFAULT_FONT_SIZE_PT = 10.5;
 
 export type FontFamily = 'inter' | 'source-sans' | 'georgia' | 'times';
 
@@ -60,7 +56,7 @@ export interface CvLanguage {
 export interface CvData {
   templateId: TemplateId;
   accentColor: AccentColor;
-  fontSize: FontSize;
+  fontSizePt: number;
   fontFamily: FontFamily;
   avatarUrl: string | null;
   fullName: string;
@@ -80,7 +76,7 @@ export function createEmptyCvData(templateId: TemplateId): CvData {
   return {
     templateId,
     accentColor: 'navy',
-    fontSize: 'medium',
+    fontSizePt: DEFAULT_FONT_SIZE_PT,
     fontFamily: 'inter',
     avatarUrl: null,
     fullName: '',
