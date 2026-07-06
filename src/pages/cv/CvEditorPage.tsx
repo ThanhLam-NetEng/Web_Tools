@@ -10,7 +10,7 @@ import type {
   CvExperience,
   CvLanguage,
 } from '../../../shared/cv';
-import { ACCENT_COLORS, FONT_SIZES } from '../../../shared/cv';
+import { ACCENT_COLORS, FONT_FAMILIES, FONT_SIZES } from '../../../shared/cv';
 import { TEMPLATES } from '../../templates';
 import { CvPreviewFrame } from '../../components/CvPreviewFrame';
 import './cv-pages.css';
@@ -49,9 +49,12 @@ export function CvEditorPage() {
     api
       .get<CvDocumentFull>(`/cv/${id}`)
       .then((doc) => {
-        // CV cũ lưu trước khi có tính năng cỡ chữ sẽ thiếu field này trong data_json.
-        const legacy = doc.data as Omit<CvData, 'fontSize'> & { fontSize?: CvData['fontSize'] };
-        setData({ ...legacy, fontSize: legacy.fontSize ?? 'medium' });
+        // CV cũ lưu trước khi có tính năng cỡ/kiểu chữ sẽ thiếu 2 field này trong data_json.
+        const legacy = doc.data as Omit<CvData, 'fontSize' | 'fontFamily'> & {
+          fontSize?: CvData['fontSize'];
+          fontFamily?: CvData['fontFamily'];
+        };
+        setData({ ...legacy, fontSize: legacy.fontSize ?? 'medium', fontFamily: legacy.fontFamily ?? 'inter' });
       })
       .catch(() => setError('Không tải được CV.'))
       .finally(() => setLoading(false));
@@ -232,13 +235,29 @@ function PersonalStep({ data, patch }: StepProps) {
 
       <div className="field">
         <label>Cỡ chữ</label>
-        <div className="font-size-picker">
+        <div className="option-picker">
           {FONT_SIZES.map((f) => (
             <button
               key={f.id}
               type="button"
               className={`cv-editor-step-btn${data.fontSize === f.id ? ' active' : ''}`}
               onClick={() => patch({ fontSize: f.id })}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="field">
+        <label>Kiểu chữ</label>
+        <div className="option-picker">
+          {FONT_FAMILIES.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              className={`cv-editor-step-btn${data.fontFamily === f.id ? ' active' : ''}`}
+              onClick={() => patch({ fontFamily: f.id })}
             >
               {f.label}
             </button>
@@ -290,9 +309,11 @@ function EducationStep({ data, patch }: StepProps) {
     <div>
       {data.education.map((edu) => (
         <div className="cv-repeat-item" key={edu.id}>
-          <button type="button" className="btn btn-ghost cv-repeat-remove" onClick={() => remove(edu.id)}>
-            Xoá
-          </button>
+          <div className="cv-repeat-item-toolbar">
+            <button type="button" className="btn btn-ghost" onClick={() => remove(edu.id)}>
+              Xoá
+            </button>
+          </div>
           <div className="field">
             <label>Trường</label>
             <input value={edu.school} onChange={(e) => update(edu.id, { school: e.target.value })} />
@@ -348,9 +369,11 @@ function ExperienceStep({ data, patch }: StepProps) {
     <div>
       {data.experience.map((exp) => (
         <div className="cv-repeat-item" key={exp.id}>
-          <button type="button" className="btn btn-ghost cv-repeat-remove" onClick={() => remove(exp.id)}>
-            Xoá
-          </button>
+          <div className="cv-repeat-item-toolbar">
+            <button type="button" className="btn btn-ghost" onClick={() => remove(exp.id)}>
+              Xoá
+            </button>
+          </div>
           <div className="field">
             <label>Công ty</label>
             <input value={exp.company} onChange={(e) => update(exp.id, { company: e.target.value })} />
@@ -429,9 +452,11 @@ function SkillsStep({ data, patch }: StepProps) {
       <h3 style={{ fontSize: '1rem', margin: '1rem 0 0.6rem' }}>Chứng chỉ</h3>
       {data.certificates.map((cert) => (
         <div className="cv-repeat-item" key={cert.id}>
-          <button type="button" className="btn btn-ghost cv-repeat-remove" onClick={() => removeCert(cert.id)}>
-            Xoá
-          </button>
+          <div className="cv-repeat-item-toolbar">
+            <button type="button" className="btn btn-ghost" onClick={() => removeCert(cert.id)}>
+              Xoá
+            </button>
+          </div>
           <div className="field">
             <label>Tên chứng chỉ</label>
             <input value={cert.name} onChange={(e) => updateCert(cert.id, { name: e.target.value })} />
@@ -455,9 +480,11 @@ function SkillsStep({ data, patch }: StepProps) {
       <h3 style={{ fontSize: '1rem', margin: '1.4rem 0 0.6rem' }}>Ngôn ngữ</h3>
       {data.languages.map((lang) => (
         <div className="cv-repeat-item" key={lang.id}>
-          <button type="button" className="btn btn-ghost cv-repeat-remove" onClick={() => removeLang(lang.id)}>
-            Xoá
-          </button>
+          <div className="cv-repeat-item-toolbar">
+            <button type="button" className="btn btn-ghost" onClick={() => removeLang(lang.id)}>
+              Xoá
+            </button>
+          </div>
           <div className="cv-editor-row">
             <div className="field">
               <label>Ngôn ngữ</label>

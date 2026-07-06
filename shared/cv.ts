@@ -18,6 +18,15 @@ export const FONT_SIZES: { id: FontSize; label: string; pt: number }[] = [
   { id: 'large', label: 'Lớn', pt: 11.5 },
 ];
 
+export type FontFamily = 'inter' | 'source-sans' | 'georgia' | 'times';
+
+export const FONT_FAMILIES: { id: FontFamily; label: string; css: string }[] = [
+  { id: 'inter', label: 'Inter (sans-serif)', css: "'Inter', 'Source Sans 3', sans-serif" },
+  { id: 'source-sans', label: 'Source Sans (sans-serif)', css: "'Source Sans 3', 'Inter', sans-serif" },
+  { id: 'georgia', label: 'Georgia (serif)', css: "Georgia, 'Times New Roman', serif" },
+  { id: 'times', label: 'Times New Roman (serif)', css: "'Times New Roman', Georgia, serif" },
+];
+
 export interface CvExperience {
   id: string;
   company: string;
@@ -52,6 +61,7 @@ export interface CvData {
   templateId: TemplateId;
   accentColor: AccentColor;
   fontSize: FontSize;
+  fontFamily: FontFamily;
   avatarUrl: string | null;
   fullName: string;
   jobTitle: string;
@@ -71,6 +81,7 @@ export function createEmptyCvData(templateId: TemplateId): CvData {
     templateId,
     accentColor: 'navy',
     fontSize: 'medium',
+    fontFamily: 'inter',
     avatarUrl: null,
     fullName: '',
     jobTitle: '',

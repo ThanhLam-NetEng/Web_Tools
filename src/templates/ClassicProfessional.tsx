@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { CvData } from '../../shared/cv';
-import { ACCENT_COLORS, FONT_SIZES } from '../../shared/cv';
+import { ACCENT_COLORS, FONT_FAMILIES, FONT_SIZES } from '../../shared/cv';
 import './ClassicProfessional.css';
 
 interface Props {
@@ -10,11 +10,12 @@ interface Props {
 export function ClassicProfessional({ data }: Props) {
   const accent = ACCENT_COLORS.find((a) => a.id === data.accentColor)?.hex ?? ACCENT_COLORS[0].hex;
   const fontSizePt = FONT_SIZES.find((f) => f.id === data.fontSize)?.pt ?? FONT_SIZES[1].pt;
+  const fontFamily = FONT_FAMILIES.find((f) => f.id === data.fontFamily)?.css ?? FONT_FAMILIES[0].css;
 
   return (
     <div
       className="cv-classic"
-      style={{ '--cv-accent': accent, fontSize: `${fontSizePt}pt` } as CSSProperties}
+      style={{ '--cv-accent': accent, fontSize: `${fontSizePt}pt`, fontFamily } as CSSProperties}
     >
       <header className="cv-classic-header">
         {data.avatarUrl && <img className="cv-classic-avatar" src={data.avatarUrl} alt="" />}
@@ -93,6 +94,20 @@ export function ClassicProfessional({ data }: Props) {
               <p className="cv-classic-item-sub">{cert.issuer}</p>
             </div>
           ))}
+        </section>
+      )}
+
+      {data.languages.length > 0 && (
+        <section>
+          <h2>Ngôn ngữ</h2>
+          <div className="cv-classic-skills">
+            {data.languages.map((lang) => (
+              <p key={lang.id}>
+                {lang.name}
+                {lang.level ? ` — ${lang.level}` : ''}
+              </p>
+            ))}
+          </div>
         </section>
       )}
     </div>

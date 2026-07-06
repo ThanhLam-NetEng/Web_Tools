@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 const PAGE_WIDTH_PX = 794; // 210mm at 96dpi
 const PAGE_HEIGHT_PX = 1123; // 297mm at 96dpi
-const SCALE = 0.6;
+const SCALE = 0.78;
 
 interface Props {
   children: ReactNode;

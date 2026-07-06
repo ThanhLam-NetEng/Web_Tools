@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { CvData } from '../../shared/cv';
-import { ACCENT_COLORS, FONT_SIZES } from '../../shared/cv';
+import { ACCENT_COLORS, FONT_FAMILIES, FONT_SIZES } from '../../shared/cv';
 import './ModernTwoColumn.css';
 
 interface Props {
@@ -10,11 +10,12 @@ interface Props {
 export function ModernTwoColumn({ data }: Props) {
   const accent = ACCENT_COLORS.find((a) => a.id === data.accentColor)?.hex ?? ACCENT_COLORS[0].hex;
   const fontSizePt = FONT_SIZES.find((f) => f.id === data.fontSize)?.pt ?? FONT_SIZES[1].pt;
+  const fontFamily = FONT_FAMILIES.find((f) => f.id === data.fontFamily)?.css ?? FONT_FAMILIES[0].css;
 
   return (
     <div
       className="cv-modern"
-      style={{ '--cv-accent': accent, fontSize: `${fontSizePt}pt` } as CSSProperties}
+      style={{ '--cv-accent': accent, fontSize: `${fontSizePt}pt`, fontFamily } as CSSProperties}
     >
       <aside className="cv-modern-side">
         {data.avatarUrl && <img className="cv-modern-avatar" src={data.avatarUrl} alt="" />}
