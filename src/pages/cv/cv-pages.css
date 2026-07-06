@@ -48,7 +48,7 @@
 
 .cv-editor {
   display: flex;
-  gap: 1.5rem;
+  gap: 3.5rem;
   align-items: flex-start;
 }
 
@@ -143,6 +143,14 @@
 
 .cv-editor-row .field {
   flex: 1;
+  min-width: 0;
+}
+
+.cv-editor-row .field input,
+.cv-editor-row .field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .accent-picker {
