@@ -236,7 +236,7 @@ function PersonalStep({ data, patch }: StepProps) {
       </div>
       <div className="field">
         <label>Tóm tắt</label>
-        <textarea rows={4} value={data.summary} onChange={(e) => patch({ summary: e.target.value })} />
+        <textarea rows={6} value={data.summary} onChange={(e) => patch({ summary: e.target.value })} />
       </div>
     </div>
   );
@@ -347,7 +347,7 @@ function ExperienceStep({ data, patch }: StepProps) {
           <div className="field">
             <label>Mô tả</label>
             <textarea
-              rows={3}
+              rows={5}
               value={exp.description}
               onChange={(e) => update(exp.id, { description: e.target.value })}
             />
@@ -387,16 +387,9 @@ function SkillsStep({ data, patch }: StepProps) {
       <div className="field">
         <label>Kỹ năng (mỗi dòng 1 kỹ năng)</label>
         <textarea
-          rows={5}
+          rows={8}
           value={data.skills.join('\n')}
-          onChange={(e) =>
-            patch({
-              skills: e.target.value
-                .split('\n')
-                .map((s) => s.trim())
-                .filter(Boolean),
-            })
-          }
+          onChange={(e) => patch({ skills: e.target.value.split('\n') })}
         />
       </div>
 

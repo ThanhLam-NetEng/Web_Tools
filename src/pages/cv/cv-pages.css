@@ -90,6 +90,7 @@
 .cv-editor-preview {
   position: sticky;
   top: 1.5rem;
+  flex-shrink: 0;
 }
 
 .cv-preview-frame {

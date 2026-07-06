@@ -65,6 +65,7 @@
 
 .cv-classic p {
   margin: 0;
+  white-space: pre-line;
 }
 
 .cv-classic-item {

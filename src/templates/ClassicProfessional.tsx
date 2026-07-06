@@ -63,10 +63,15 @@ export function ClassicProfessional({ data }: Props) {
         </section>
       )}
 
-      {data.skills.length > 0 && (
+      {data.skills.some((s) => s.trim()) && (
         <section>
           <h2>Kỹ năng</h2>
-          <p>{data.skills.join(' · ')}</p>
+          <p>
+            {data.skills
+              .map((s) => s.trim())
+              .filter(Boolean)
+              .join(' · ')}
+          </p>
         </section>
       )}
 

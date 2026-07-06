@@ -59,6 +59,7 @@
   margin: 0 0 0.2rem;
   font-size: 0.85rem;
   word-break: break-word;
+  white-space: pre-line;
 }
 
 .cv-modern-side ul {
@@ -89,6 +90,7 @@
 
 .cv-modern-main p {
   margin: 0;
+  white-space: pre-line;
 }
 
 .cv-modern-item {

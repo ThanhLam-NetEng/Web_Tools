@@ -24,13 +24,16 @@ export function ModernTwoColumn({ data }: Props) {
           {data.address && <p>{data.address}</p>}
         </section>
 
-        {data.skills.length > 0 && (
+        {data.skills.some((s) => s.trim()) && (
           <section>
             <h2>Kỹ năng</h2>
             <ul>
-              {data.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
-              ))}
+              {data.skills
+                .map((s) => s.trim())
+                .filter(Boolean)
+                .map((skill) => (
+                  <li key={skill}>{skill}</li>
+                ))}
             </ul>
           </section>
         )}
