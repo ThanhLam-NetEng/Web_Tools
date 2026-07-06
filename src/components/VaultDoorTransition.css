@@ -1,0 +1,77 @@
+.vault-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.vault-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(180deg, var(--emerald), var(--obsidian));
+  border-color: var(--gold);
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.vault-panel-left {
+  left: 0;
+  border-right: 1px solid rgba(212, 175, 55, 0.6);
+  animation-name: vault-slide-left;
+}
+
+.vault-panel-right {
+  right: 0;
+  border-left: 1px solid rgba(212, 175, 55, 0.6);
+  animation-name: vault-slide-right;
+}
+
+.vault-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(240, 214, 117, 0.9) 0%, rgba(212, 175, 55, 0) 60%);
+  opacity: 0;
+  animation: vault-flash 700ms ease-out forwards;
+}
+
+@keyframes vault-slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes vault-slide-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes vault-flash {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vault-panel,
+  .vault-flash {
+    animation: none;
+    display: none;
+  }
+}

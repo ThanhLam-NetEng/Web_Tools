@@ -1,0 +1,31 @@
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th {
+  text-align: left;
+  color: var(--mist);
+  font-weight: 500;
+  font-size: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.admin-table td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid rgba(138, 147, 160, 0.15);
+  vertical-align: middle;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-rejected {
+  background: rgba(92, 26, 43, 0.4);
+  color: #e08b9a;
+}

@@ -6,6 +6,17 @@ export interface Env {
   AVATARS: R2Bucket;
 }
 
+export interface AuthUser {
+  id: string;
+  email: string;
+  role: Role;
+  status: UserStatus;
+}
+
+export interface Variables {
+  user?: AuthUser;
+}
+
 export interface User {
   id: string;
   email: string;
