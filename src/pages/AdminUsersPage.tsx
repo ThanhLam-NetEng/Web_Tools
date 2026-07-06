@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { api, ApiError } from '../lib/api';
 import './admin.css';
@@ -24,6 +24,7 @@ export function AdminUsersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [stampingId, setStampingId] = useState<string | null>(null);
 
   const loadUsers = useCallback(async () => {
     setLoading(true);
@@ -51,6 +52,13 @@ export function AdminUsersPage() {
       setError(err instanceof ApiError ? err.message : 'Thao tác thất bại.');
       setBusyId(null);
     }
+  }
+
+  async function handleApprove(row: AdminUserRow) {
+    setStampingId(row.id);
+    await new Promise((resolve) => setTimeout(resolve, 650));
+    await runAction(row.id, () => api.post(`/admin/users/${row.id}/approve`));
+    setStampingId(null);
   }
 
   function handleRoleChange(row: AdminUserRow, role: 'admin' | 'user') {
@@ -87,8 +95,22 @@ export function AdminUsersPage() {
                 <tr key={row.id}>
                   <td>{row.email}</td>
                   <td>{row.role}</td>
-                  <td>
-                    <span className={`badge badge-${row.status}`}>{STATUS_LABEL[row.status]}</span>
+                  <td style={{ position: 'relative' }}>
+                    <span className={`badge badge-${row.status}${stampingId === row.id ? ' badge-stamping' : ''}`}>
+                      {STATUS_LABEL[row.status]}
+                    </span>
+                    {stampingId === row.id && (
+                      <span className="approve-stamp" aria-hidden="true">
+                        <span className="approve-stamp-seal" />
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <span
+                            key={i}
+                            className="approve-stamp-sparkle"
+                            style={{ '--i': i } as CSSProperties}
+                          />
+                        ))}
+                      </span>
+                    )}
                   </td>
                   <td>{new Date(row.created_at).toLocaleDateString('vi-VN')}</td>
                   <td className="admin-actions">
@@ -97,8 +119,8 @@ export function AdminUsersPage() {
                         <button
                           type="button"
                           className="btn btn-primary"
-                          disabled={busy}
-                          onClick={() => void runAction(row.id, () => api.post(`/admin/users/${row.id}/approve`))}
+                          disabled={busy || stampingId === row.id}
+                          onClick={() => void handleApprove(row)}
                         >
                           Duyệt
                         </button>

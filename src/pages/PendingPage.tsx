@@ -21,7 +21,7 @@ export function PendingPage() {
 
   return (
     <div className="center-screen">
-      <div className="card auth-shell" style={{ textAlign: 'center' }}>
+      <div className="card auth-shell page-entrance" style={{ textAlign: 'center' }}>
         <h1>{message.title}</h1>
         <p className="subtitle">{message.body}</p>
         <Link

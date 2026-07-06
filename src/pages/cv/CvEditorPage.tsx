@@ -76,8 +76,18 @@ export function CvEditorPage() {
     setExporting(true);
     setError(null);
     try {
-      const { exportElementToPdf } = await import('../../lib/exportPdf');
+      const [{ exportElementToPdf }, { default: confetti }] = await Promise.all([
+        import('../../lib/exportPdf'),
+        import('canvas-confetti'),
+      ]);
       await exportElementToPdf(exportRef.current, `${data.fullName || 'cv'}.pdf`);
+      confetti({
+        particleCount: 90,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ['#D4AF37', '#F0D675', '#F3ECDD'],
+        disableForReducedMotion: true,
+      });
     } catch {
       setError('Xuất PDF thất bại, thử lại.');
     } finally {

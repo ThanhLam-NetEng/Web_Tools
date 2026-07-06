@@ -49,7 +49,7 @@ export function LoginPage() {
 
   return (
     <div className="center-screen">
-      <div className="card auth-shell">
+      <div className="card auth-shell page-entrance">
         <h1>Đăng nhập</h1>
         <p className="subtitle">Vào không gian riêng của bro.</p>
 

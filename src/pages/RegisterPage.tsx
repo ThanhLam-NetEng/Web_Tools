@@ -48,7 +48,7 @@ export function RegisterPage() {
 
   return (
     <div className="center-screen">
-      <div className="card auth-shell">
+      <div className="card auth-shell page-entrance">
         <h1>Đăng ký</h1>
         <p className="subtitle">Gửi yêu cầu, admin duyệt xong là dùng được.</p>
 

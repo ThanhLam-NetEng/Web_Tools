@@ -34,7 +34,7 @@ export function AppShell({ title, links }: AppShellProps) {
           </button>
         </div>
       </header>
-      <main className="app-content">
+      <main className="app-content page-entrance">
         <Outlet />
       </main>
     </div>
