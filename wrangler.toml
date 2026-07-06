@@ -1,0 +1,27 @@
+name = "cv-tools-webapp"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# ── Mặc định (local dev qua `wrangler pages dev`, và preview deployments) ──
+# Trỏ vào D1 database "lamweb-dev" — dùng khi code/test, KHÔNG đụng data thật.
+[[d1_databases]]
+binding = "DB"
+database_name = "lamweb-dev"
+database_id = "a0c8e8f6-f664-4f45-9c9c-46b7c2c99d95"
+
+[[r2_buckets]]
+binding = "AVATARS"
+bucket_name = "lamweb-avatars-dev"
+
+# ── Production (deploy bằng `wrangler pages deploy --env production`, hoặc branch main trên Cloudflare Pages) ──
+[env.production]
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "lamweb-prod"
+database_id = "2fcdd1c8-51b5-4621-a772-28224e62b394"
+
+[[env.production.r2_buckets]]
+binding = "AVATARS"
+bucket_name = "lamweb-avatars-prod"
