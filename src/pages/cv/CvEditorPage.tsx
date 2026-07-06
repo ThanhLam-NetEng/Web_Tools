@@ -204,7 +204,7 @@ function PersonalStep({ data, patch }: StepProps) {
     <div>
       <div className="field">
         <label>Ảnh đại diện (tùy chọn, JPG/PNG, tối đa 2MB)</label>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           {data.avatarUrl && (
             <img
               src={data.avatarUrl}
@@ -224,7 +224,7 @@ function PersonalStep({ data, patch }: StepProps) {
       </div>
 
       <div className="cv-editor-row cv-design-row">
-        <div className="field" style={{ flex: '0 0 auto' }}>
+        <div className="field cv-design-field-accent">
           <label>Màu nhấn</label>
           <div className="accent-picker">
             {ACCENT_COLORS.map((c) => (
@@ -240,7 +240,7 @@ function PersonalStep({ data, patch }: StepProps) {
           </div>
         </div>
 
-        <div className="field" style={{ flex: '0 0 90px' }}>
+        <div className="field cv-design-field-size">
           <label>Cỡ chữ (pt)</label>
           <input
             type="number"
@@ -252,7 +252,7 @@ function PersonalStep({ data, patch }: StepProps) {
           />
         </div>
 
-        <div className="field" style={{ flex: 1 }}>
+        <div className="field cv-design-field-family">
           <label>Kiểu chữ</label>
           <select value={data.fontFamily} onChange={(e) => patch({ fontFamily: e.target.value as CvData['fontFamily'] })}>
             {FONT_FAMILIES.map((f) => (

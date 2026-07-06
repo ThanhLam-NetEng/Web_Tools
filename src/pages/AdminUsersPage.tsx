@@ -76,6 +76,7 @@ export function AdminUsersPage() {
       <h2>Quản lý người dùng</h2>
       {error && <p className="error-text">{error}</p>}
       <div className="card" style={{ padding: '0.5rem 1rem', marginTop: '1rem' }}>
+        <div className="admin-table-scroll">
         <table className="admin-table">
           <thead>
             <tr>
@@ -193,6 +194,7 @@ export function AdminUsersPage() {
             })}
           </tbody>
         </table>
+        </div>
         {users.length === 0 && <p style={{ padding: '1rem', color: 'var(--mist)' }}>Chưa có user nào.</p>}
       </div>
     </div>

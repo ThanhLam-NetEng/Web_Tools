@@ -29,6 +29,7 @@ body {
   color: var(--ivory);
   font-family: var(--font-body);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 #root {
@@ -97,6 +98,7 @@ button {
 
 .page-entrance {
   position: relative;
+  overflow: hidden;
   animation: content-rise 550ms ease-out both;
 }
 

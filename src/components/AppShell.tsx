@@ -28,7 +28,7 @@ export function AppShell({ title, links }: AppShellProps) {
           ))}
         </nav>
         <div className="app-nav-user">
-          <span>{user?.email}</span>
+          <span className="app-nav-email">{user?.email}</span>
           <button type="button" className="btn btn-ghost" onClick={() => void handleLogout()}>
             Đăng xuất
           </button>

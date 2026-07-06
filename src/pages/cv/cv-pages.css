@@ -58,6 +58,28 @@
   max-width: 460px;
 }
 
+@media (max-width: 1100px) {
+  .cv-editor {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cv-editor-form {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .cv-editor-preview {
+    position: static;
+    width: 100%;
+  }
+
+  .cv-preview-frame-outer {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
 .cv-editor-steps {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -97,11 +119,17 @@
   flex-shrink: 0;
 }
 
+.cv-preview-frame-outer {
+  width: 100%;
+  max-width: 620px;
+}
+
 .cv-preview-frame {
   overflow: hidden;
   position: relative;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
+  margin: 0 auto;
 }
 
 .cv-repeat-item {
@@ -169,4 +197,69 @@
 
 .accent-swatch.selected {
   border-color: var(--gold-light);
+}
+
+.cv-design-field-accent {
+  flex: 0 0 auto;
+}
+
+.cv-design-field-size {
+  flex: 0 0 90px;
+}
+
+.cv-design-field-family {
+  flex: 1;
+}
+
+@media (max-width: 560px) {
+  .cv-design-row {
+    flex-wrap: wrap;
+  }
+
+  .cv-design-field-accent {
+    flex: 1 1 100%;
+  }
+
+  .cv-design-field-size {
+    flex: 1 1 auto;
+  }
+
+  .cv-design-field-family {
+    flex: 2 1 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cv-editor-row {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .cv-design-row {
+    gap: 0.9rem;
+  }
+
+  .cv-design-field-accent,
+  .cv-design-field-size,
+  .cv-design-field-family {
+    flex: 1 1 auto;
+  }
+
+  .cv-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .cv-list-actions {
+    width: 100%;
+  }
+
+  .cv-list-actions .btn {
+    flex: 1;
+  }
+
+  .cv-editor-steps {
+    grid-template-columns: 1fr;
+  }
 }
