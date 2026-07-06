@@ -16,6 +16,13 @@ function RootRedirect() {
   return <Navigate to={user.role === 'admin' ? '/admin/users' : '/app'} replace />;
 }
 
+function AppSectionShell() {
+  const { user } = useAuth();
+  const links = [{ to: '/', label: 'Trang chủ' }];
+  if (user?.role === 'admin') links.push({ to: '/admin/users', label: 'Quản trị' });
+  return <AppShell title="CV Tools" links={links} />;
+}
+
 function AppRoutes() {
   return (
     <Routes>
@@ -26,7 +33,7 @@ function AppRoutes() {
 
       <Route element={<RequireAuth />}>
         <Route element={<RequireActive />}>
-          <Route path="/app" element={<AppShell title="CV Tools" links={[{ to: '/app', label: 'Trang chủ' }]} />}>
+          <Route path="/app" element={<AppSectionShell />}>
             <Route index element={<AppHomePage />} />
           </Route>
         </Route>
