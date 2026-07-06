@@ -59,10 +59,14 @@
 }
 
 .cv-editor-steps {
-  display: flex;
-  gap: 0.4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
   margin-bottom: 1.2rem;
-  flex-wrap: wrap;
+}
+
+.cv-editor-steps .cv-editor-step-btn {
+  width: 100%;
 }
 
 .cv-editor-step-btn {
@@ -114,7 +118,21 @@
 .cv-repeat-item-toolbar {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.cv-repeat-remove-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--mist);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.cv-repeat-remove-link:hover {
+  color: #e08b9a;
+  text-decoration: underline;
 }
 
 .cv-editor-row {

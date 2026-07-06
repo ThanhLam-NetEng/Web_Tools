@@ -309,7 +309,7 @@ function EducationStep({ data, patch }: StepProps) {
       {data.education.map((edu) => (
         <div className="cv-repeat-item" key={edu.id}>
           <div className="cv-repeat-item-toolbar">
-            <button type="button" className="btn btn-ghost" onClick={() => remove(edu.id)}>
+            <button type="button" className="cv-repeat-remove-link" onClick={() => remove(edu.id)}>
               Xoá
             </button>
           </div>
@@ -369,7 +369,7 @@ function ExperienceStep({ data, patch }: StepProps) {
       {data.experience.map((exp) => (
         <div className="cv-repeat-item" key={exp.id}>
           <div className="cv-repeat-item-toolbar">
-            <button type="button" className="btn btn-ghost" onClick={() => remove(exp.id)}>
+            <button type="button" className="cv-repeat-remove-link" onClick={() => remove(exp.id)}>
               Xoá
             </button>
           </div>
@@ -452,7 +452,7 @@ function SkillsStep({ data, patch }: StepProps) {
       {data.certificates.map((cert) => (
         <div className="cv-repeat-item" key={cert.id}>
           <div className="cv-repeat-item-toolbar">
-            <button type="button" className="btn btn-ghost" onClick={() => removeCert(cert.id)}>
+            <button type="button" className="cv-repeat-remove-link" onClick={() => removeCert(cert.id)}>
               Xoá
             </button>
           </div>
@@ -480,7 +480,7 @@ function SkillsStep({ data, patch }: StepProps) {
       {data.languages.map((lang) => (
         <div className="cv-repeat-item" key={lang.id}>
           <div className="cv-repeat-item-toolbar">
-            <button type="button" className="btn btn-ghost" onClick={() => removeLang(lang.id)}>
+            <button type="button" className="cv-repeat-remove-link" onClick={() => removeLang(lang.id)}>
               Xoá
             </button>
           </div>
