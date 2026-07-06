@@ -7,6 +7,9 @@ import { PendingPage } from './pages/PendingPage';
 import { AppShell } from './components/AppShell';
 import { AppHomePage } from './pages/AppHomePage';
 import { AdminUsersPage } from './pages/AdminUsersPage';
+import { MyCvsPage } from './pages/cv/MyCvsPage';
+import { TemplatePickerPage } from './pages/cv/TemplatePickerPage';
+import { CvEditorPage } from './pages/cv/CvEditorPage';
 
 function RootRedirect() {
   const { user, loading } = useAuth();
@@ -35,6 +38,9 @@ function AppRoutes() {
         <Route element={<RequireActive />}>
           <Route path="/app" element={<AppSectionShell />}>
             <Route index element={<AppHomePage />} />
+            <Route path="cv" element={<MyCvsPage />} />
+            <Route path="cv/new" element={<TemplatePickerPage />} />
+            <Route path="cv/:id" element={<CvEditorPage />} />
           </Route>
         </Route>
 

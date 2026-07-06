@@ -35,5 +35,24 @@ export const api = {
   get: <T>(path: string) => request<T>(path),
   post: <T>(path: string, data?: unknown) =>
     request<T>(path, { method: 'POST', body: data ? JSON.stringify(data) : undefined }),
+  put: <T>(path: string, data?: unknown) =>
+    request<T>(path, { method: 'PUT', body: data ? JSON.stringify(data) : undefined }),
   delete: <T>(path: string) => request<T>(path, { method: 'DELETE' }),
 };
+
+export async function uploadAvatar(blob: Blob): Promise<{ url: string }> {
+  const res = await fetch(`${BASE}/cv/upload-avatar`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': blob.type },
+    body: blob,
+  });
+
+  const body = await res.json().catch(() => null);
+  if (!res.ok) {
+    const message = (body as { error?: string } | null)?.error ?? 'upload failed';
+    throw new ApiError(message, res.status, body);
+  }
+
+  return body as { url: string };
+}
