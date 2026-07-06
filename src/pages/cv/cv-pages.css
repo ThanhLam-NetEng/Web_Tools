@@ -103,7 +103,7 @@
 .cv-repeat-item {
   border: 1px solid rgba(138, 147, 160, 0.25);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 1rem 4.5rem 1rem 1rem;
   margin-bottom: 0.8rem;
   position: relative;
 }
@@ -130,7 +130,11 @@
 .accent-picker {
   display: flex;
   gap: 0.6rem;
-  margin-bottom: 1.1rem;
+}
+
+.font-size-picker {
+  display: flex;
+  gap: 0.4rem;
 }
 
 .accent-swatch {

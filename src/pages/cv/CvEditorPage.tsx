@@ -10,7 +10,7 @@ import type {
   CvExperience,
   CvLanguage,
 } from '../../../shared/cv';
-import { ACCENT_COLORS } from '../../../shared/cv';
+import { ACCENT_COLORS, FONT_SIZES } from '../../../shared/cv';
 import { TEMPLATES } from '../../templates';
 import { CvPreviewFrame } from '../../components/CvPreviewFrame';
 import './cv-pages.css';
@@ -48,7 +48,11 @@ export function CvEditorPage() {
     setLoading(true);
     api
       .get<CvDocumentFull>(`/cv/${id}`)
-      .then((doc) => setData(doc.data))
+      .then((doc) => {
+        // CV cũ lưu trước khi có tính năng cỡ chữ sẽ thiếu field này trong data_json.
+        const legacy = doc.data as Omit<CvData, 'fontSize'> & { fontSize?: CvData['fontSize'] };
+        setData({ ...legacy, fontSize: legacy.fontSize ?? 'medium' });
+      })
       .catch(() => setError('Không tải được CV.'))
       .finally(() => setLoading(false));
   }, [id]);
@@ -210,17 +214,36 @@ function PersonalStep({ data, patch }: StepProps) {
         {avatarError && <p className="error-text">{avatarError}</p>}
       </div>
 
-      <div className="accent-picker">
-        {ACCENT_COLORS.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            className={`accent-swatch${data.accentColor === c.id ? ' selected' : ''}`}
-            style={{ background: c.hex }}
-            title={c.label}
-            onClick={() => patch({ accentColor: c.id })}
-          />
-        ))}
+      <div className="field">
+        <label>Màu nhấn</label>
+        <div className="accent-picker">
+          {ACCENT_COLORS.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              className={`accent-swatch${data.accentColor === c.id ? ' selected' : ''}`}
+              style={{ background: c.hex }}
+              title={c.label}
+              onClick={() => patch({ accentColor: c.id })}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="field">
+        <label>Cỡ chữ</label>
+        <div className="font-size-picker">
+          {FONT_SIZES.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              className={`cv-editor-step-btn${data.fontSize === f.id ? ' active' : ''}`}
+              onClick={() => patch({ fontSize: f.id })}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="field">
         <label>Họ và tên</label>

@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { CvData } from '../../shared/cv';
-import { ACCENT_COLORS } from '../../shared/cv';
+import { ACCENT_COLORS, FONT_SIZES } from '../../shared/cv';
 import './ClassicProfessional.css';
 
 interface Props {
@@ -9,9 +9,13 @@ interface Props {
 
 export function ClassicProfessional({ data }: Props) {
   const accent = ACCENT_COLORS.find((a) => a.id === data.accentColor)?.hex ?? ACCENT_COLORS[0].hex;
+  const fontSizePt = FONT_SIZES.find((f) => f.id === data.fontSize)?.pt ?? FONT_SIZES[1].pt;
 
   return (
-    <div className="cv-classic" style={{ '--cv-accent': accent } as CSSProperties}>
+    <div
+      className="cv-classic"
+      style={{ '--cv-accent': accent, fontSize: `${fontSizePt}pt` } as CSSProperties}
+    >
       <header className="cv-classic-header">
         {data.avatarUrl && <img className="cv-classic-avatar" src={data.avatarUrl} alt="" />}
         <div>
@@ -66,12 +70,14 @@ export function ClassicProfessional({ data }: Props) {
       {data.skills.some((s) => s.trim()) && (
         <section>
           <h2>Kỹ năng</h2>
-          <p>
+          <div className="cv-classic-skills">
             {data.skills
               .map((s) => s.trim())
               .filter(Boolean)
-              .join(' · ')}
-          </p>
+              .map((skill) => (
+                <p key={skill}>{skill}</p>
+              ))}
+          </div>
         </section>
       )}
 
